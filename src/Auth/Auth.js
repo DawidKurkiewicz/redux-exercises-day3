@@ -16,7 +16,6 @@ import {
 } from '../state/auth'
 
 class Auth extends React.Component {
-  state = {}
 
 
   componentDidMount() {
@@ -32,9 +31,7 @@ class Auth extends React.Component {
 
 
 
-  onLogInClick = ()  => {
-   this.props._logInAsyncAction(this.state.email, this.state.password)
-  }
+
 
 
 
@@ -60,10 +57,10 @@ class Auth extends React.Component {
         :
         <Forms
           email={this.props._email}
-          onEmailChangeHandler={this.onEmailChangeHandler}
+          onEmailChangeHandler={this.props._emailChangeAction}
           password={this.props._password}
-          onPasswordChangeHandler={this.onPasswordChangeHandler}
-          onLogInClick={this.onLogInClick}
+          onPasswordChangeHandler={this.props._passwordChangeAction}
+          onLogInClick={this.props._logInAsyncAction}
           onLogInByGoogleClick={this.props._logInByGoogleAsyncAction}
         />
     )
@@ -80,9 +77,9 @@ const mapDispatchToProps = dispatch => ({
   _initAuthChangeListeningAsyncAction: () => dispatch(initAuthChangeListeningAsyncAction()),
   _logOutAsyncAction: () => dispatch(logOutAsyncAction()),
   _logInByGoogleAsyncAction: () => dispatch(logInByGoogleAsyncAction()),
-  _logInAsyncAction: (email, password) => dispatch(logInAsyncAction(email, password)),
-  _passwordChangeAction: newValue => dispatch(passwordChangeAction(newValue)),
-  _emailChangeAction: newValue => dispatch(emailChangeAction(newValue))
+  _logInAsyncAction: () => dispatch(logInAsyncAction()),
+  _passwordChangeAction: (event) => dispatch(passwordChangeAction(event.target.value)),
+  _emailChangeAction: (event) => dispatch(emailChangeAction(event.target.value))
 })
 
 export default connect(
