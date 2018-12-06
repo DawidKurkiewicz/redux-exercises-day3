@@ -1,12 +1,16 @@
 import React from 'react';
 import Auth from './Auth'
+import UserDada from './Auth/UserData'
+
+
+
 const App = (props) => (
   <div>
-    <Auth>
+    {/* <Auth> */}
       <div>
-        SUPER SECRET CONTENT!
+        <UserData />
   </div>
-    </Auth>
+   {/* </Auth> */}
   </div>
 )
 

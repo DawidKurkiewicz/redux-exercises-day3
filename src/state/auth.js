@@ -77,12 +77,14 @@ export default (state = INITIAL_STATE, action) => {
         case LOG_IN:
             return {
                 ...state,
-                isUserLoggedIn: true
+                isUserLoggedIn: true,
+                user: action.user
             }
         case LOG_OUT:
             return {
                 ...state,
-                isUserLoggedIn: false
+                isUserLoggedIn: false,
+                user: null
             }
         case EMAIL_CHANGE:
             return {
