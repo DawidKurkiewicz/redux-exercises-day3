@@ -1,7 +1,7 @@
 import React from 'react'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 
-import { auth, googleProvider } from '../firebaseConfig'
+import { auth } from '../firebaseConfig'
 
 import Forms from './Forms'
 
@@ -9,7 +9,8 @@ import { connect } from 'react-redux'
 
 import {
   initAuthChangeListeningAsyncAction, 
-  logOutAsyncAction
+  logOutAsyncAction,
+  logInByGoogleAsyncAction
 } from '../state/auth'
 
 class Auth extends React.Component {
@@ -37,9 +38,6 @@ class Auth extends React.Component {
       })
   }
 
-  onLogInByGoogleClick = () => {
-    auth.signInWithPopup(googleProvider)
-  }
 
 
 
@@ -55,7 +53,7 @@ class Auth extends React.Component {
             color: 'white'
           }}
           secondary={true}
-          onClick={this.onLogOutClickHandler}
+          onClick={this.props._logOutAsyncAction}
         >
           X
           </FloatingActionButton>
@@ -68,7 +66,7 @@ class Auth extends React.Component {
           password={this.state.password}
           onPasswordChangeHandler={this.onPasswordChangeHandler}
           onLogInClick={this.onLogInClick}
-          onLogInByGoogleClick={this.onLogInByGoogleClick}
+          onLogInByGoogleClick={this.props._logInByGoogleAsyncAction}
         />
     )
   }
@@ -80,7 +78,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   _initAuthChangeListeningAsyncAction: () => dispatch(initAuthChangeListeningAsyncAction()),
-  _logOutAsyncAction: () => dispatch(logOutAsyncAction())
+  _logOutAsyncAction: () => dispatch(logOutAsyncAction()),
+  _logInByGoogleAsyncAction: () => dispatch(logInByGoogleAsyncAction())
 })
 
 export default connect(
