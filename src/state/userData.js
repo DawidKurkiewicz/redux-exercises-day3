@@ -19,11 +19,11 @@ export const saveTextToDbAsyncAction = () => (dispatch, getState) => {
 }
 export const loadTextFromDbAsyncAction = () => (dispatch, getState) => {
     const uuid = getState().auth.user.uid
-    database.ref(`users/${uuid}`).once(
+    database.ref(`users/${uuid}/text`).once(
         'value',
         snapshot => {
             dispatch(
-                inputChangeAction(snapshot.val().text)
+                inputChangeAction(snapshot.val() || '' )
             )
         }
     )
