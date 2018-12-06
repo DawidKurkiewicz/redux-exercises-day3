@@ -5,11 +5,12 @@ import { auth, googleProvider } from '../firebaseConfig'
 
 import Forms from './Forms'
 
+import { connect } from 'react-redux'
+
 class Auth extends React.Component {
   state = {
     email: '',
     password: '',
-    isUserLoggedIn: false
   }
 
   componentDidMount() {
@@ -50,23 +51,22 @@ class Auth extends React.Component {
 
   render() {
     return (
-      this.state.isUserLoggedIn ?
-        <div>
-          <FloatingActionButton
-            style={{
-              position: 'fixed',
-              top: 10,
-              right: 10,
-              zIndex: 9999,
-              color: 'white'
-            }}
-            secondary={true}
-            onClick={this.onLogOutClickHandler}
-          >
-            X
+      this.props.isUserLoggedIn ? <div>
+        <FloatingActionButton
+          style={{
+            position: 'fixed',
+            top: 10,
+            right: 10,
+            zIndex: 9999,
+            color: 'white'
+          }}
+          secondary={true}
+          onClick={this.onLogOutClickHandler}
+        >
+          X
           </FloatingActionButton>
-          {this.props.children}
-        </div>
+        {this.props.children}
+      </div>
         :
         <Forms
           email={this.state.email}
@@ -79,4 +79,16 @@ class Auth extends React.Component {
     )
   }
 }
-export default Auth
+
+const mapStateToProps = state => ({
+  _isUserLoggedIn: state.auth.isUserLoggedIn
+})
+
+const mapDispatchToProps = dispatch => ({
+  _initAuthChangeListeningAction: () => dispatch(initAuthChangeListeningAction)
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Auth)

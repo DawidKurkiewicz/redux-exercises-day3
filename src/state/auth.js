@@ -5,7 +5,7 @@ import { auth } from '../firebaseConfig'
 const LOG_IN = 'auth/LOG_IN'
 const LOG_OUT = 'auth/LOG_OUT'
 
-export const initAuthChangeListeningAction = () => (dispatch, getState => {
+export const initAuthChangeListeningAction = () => (dispatch, getState) => {
     auth.onAuthStateChanged(
         user => {
             if (user) {
@@ -15,7 +15,7 @@ export const initAuthChangeListeningAction = () => (dispatch, getState => {
             }
         }
     )
-})
+}
 
 
 const logInAction = () => ({
