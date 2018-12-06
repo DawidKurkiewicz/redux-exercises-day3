@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Auth from './Auth'
 const App = (props) => (
   <div>
