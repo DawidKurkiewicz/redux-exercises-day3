@@ -7,7 +7,10 @@ import Forms from './Forms'
 
 import { connect } from 'react-redux'
 
-import { initAuthChangeListeningAction } from '../state/auth'
+import {
+  initAuthChangeListeningAsyncAction, 
+  logOutAsyncAction
+} from '../state/auth'
 
 class Auth extends React.Component {
   state = {
@@ -16,7 +19,7 @@ class Auth extends React.Component {
   }
 
   componentDidMount() {
-    this.props._initAuthChangeListeningAction()
+    this.props._initAuthChangeListeningAsyncAction()
   }
 
   onEmailChangeHandler = event => {
@@ -38,9 +41,7 @@ class Auth extends React.Component {
     auth.signInWithPopup(googleProvider)
   }
 
-  onLogOutClickHandler = () => {
-    auth.signOut()
-  }
+
 
   render() {
     return (
@@ -78,7 +79,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  _initAuthChangeListeningAction: () => dispatch(initAuthChangeListeningAction())
+  _initAuthChangeListeningAsyncAction: () => dispatch(initAuthChangeListeningAsyncAction()),
+  _logOutAsyncAction: () => dispatch(logOutAsyncAction())
 })
 
 export default connect(
