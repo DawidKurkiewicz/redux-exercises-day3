@@ -12,7 +12,8 @@ export const initAuthChangeListeningAsyncAction = () => (dispatch, getState) => 
     auth.onAuthStateChanged(
         user => {
             if (user) {
-                dispatch(logInAction())
+                dispatch(logInAction(user))
+                dispatch(saveLogInTimeStampAsyncAction())
             } else {
                 dispatch(logOutAction())
             }
@@ -23,7 +24,7 @@ export const initAuthChangeListeningAsyncAction = () => (dispatch, getState) => 
 
 const saveLogInTimeStampAsyncAction = () => (dispatch, getState) => {
     database.ref('loginsLogs').push({
-        timesstamp: Date.now()
+        timestamp: Date.now()
     })
 }
 
@@ -44,12 +45,14 @@ export const logInAsyncAction = () => (dispatch, getState) => {
         })
 }
 
-const logInAction = () => ({
-    type: LOG_IN
+const logInAction = user => ({
+    type: LOG_IN,
+    user
 })
 
-const logOutAction = () => ({
-    type: LOG_OUT
+const logOutAction = user => ({
+    type: LOG_OUT,
+    user
 })
 
 
