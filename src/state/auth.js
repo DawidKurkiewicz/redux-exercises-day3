@@ -1,4 +1,4 @@
-import { auth, googleProvider } from '../firebaseConfig'
+import { auth, database, googleProvider } from '../firebaseConfig'
 
 
 
@@ -19,6 +19,14 @@ export const initAuthChangeListeningAsyncAction = () => (dispatch, getState) => 
         }
     )
 }
+
+
+const saveLogInTimeStampAsyncAction = () => (dispatch, getState) => {
+    database.ref('loginsLogs').push({
+        timesstamp: Date.now()
+    })
+}
+
 export const logOutAsyncAction = () => (dispatch, getState) => {
     auth.signOut()
 }
@@ -27,8 +35,9 @@ export const logInByGoogleAsyncAction = () => (dispatch, getState) => {
     auth.signInWithPopup(googleProvider)
 }
 export const logInAsyncAction = () => (dispatch, getState) => {
-    const state = getState()
-    auth.signInWithEmailAndPassword(state.auth.email, state.auth.password)
+    const { auth: {email, password }} = getState()
+
+    auth.signInWithEmailAndPassword(email, password)
         .catch(error => {
             alert('Something is wrong! Check console for error details!')
             console.log(error)
