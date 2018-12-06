@@ -7,17 +7,17 @@ import Forms from './Forms'
 import { connect } from 'react-redux'
 
 import {
-  initAuthChangeListeningAsyncAction, 
+  initAuthChangeListeningAsyncAction,
   logOutAsyncAction,
   logInByGoogleAsyncAction,
-  logInAsyncAction
+  logInAsyncAction,
+  emailChangeAction,
+  passwordChangeAction
 } from '../state/auth'
 
 class Auth extends React.Component {
-  state = {
-    email: '',
-    password: '',
-  }
+  state = {}
+
 
   componentDidMount() {
     this.props._initAuthChangeListeningAsyncAction()
@@ -29,6 +29,9 @@ class Auth extends React.Component {
   onPasswordChangeHandler = event => {
     this.setState({ password: event.target.value })
   }
+
+
+
   onLogInClick = ()  => {
    this.props._logInAsyncAction(this.state.email, this.state.password)
   }
@@ -56,9 +59,9 @@ class Auth extends React.Component {
       </div>
         :
         <Forms
-          email={this.state.email}
+          email={this.props._email}
           onEmailChangeHandler={this.onEmailChangeHandler}
-          password={this.state.password}
+          password={this.props._password}
           onPasswordChangeHandler={this.onPasswordChangeHandler}
           onLogInClick={this.onLogInClick}
           onLogInByGoogleClick={this.props._logInByGoogleAsyncAction}
@@ -68,14 +71,18 @@ class Auth extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  _isUserLoggedIn: state.auth.isUserLoggedIn
+  _isUserLoggedIn: state.auth.isUserLoggedIn,
+  _email: state.auth.email,
+  _password: state.auth.password
 })
 
 const mapDispatchToProps = dispatch => ({
   _initAuthChangeListeningAsyncAction: () => dispatch(initAuthChangeListeningAsyncAction()),
   _logOutAsyncAction: () => dispatch(logOutAsyncAction()),
   _logInByGoogleAsyncAction: () => dispatch(logInByGoogleAsyncAction()),
-  _logInAsyncAction: (email, password) => dispatch(logInAsyncAction(email, password))
+  _logInAsyncAction: (email, password) => dispatch(logInAsyncAction(email, password)),
+  _passwordChangeAction: newValue => dispatch(passwordChangeAction(newValue)),
+  _emailChangeAction: newValue => dispatch(emailChangeAction(newValue))
 })
 
 export default connect(
