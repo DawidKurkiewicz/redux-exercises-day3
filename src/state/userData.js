@@ -1,18 +1,21 @@
 const TEXT_CHANGE = 'TEXT_CHANGE'
 
-const inputChangeAction = text => ({
+export const inputChangeAction = text => ({
     type: TEXT_CHANGE,
     text
 })
 
 const INITIAL_STATE = {
-text: ''
+    text: ''
 }
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-case TEXT_CHANGE:
-
+        case TEXT_CHANGE:
+            return {
+                ...state,
+                text: action.text
+            }
 
         default:
             return state

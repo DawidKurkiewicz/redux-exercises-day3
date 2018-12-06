@@ -1,11 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { inputChangeAction } from '../state/userData'
 
 const UserData = (props) => (
     <div>
         <input
-        value = {props._userData}
-        onChange = {() => {}}/>
+            value={props._userData}
+            onChange={props._inputChangeAction} />
     </div>
 )
 
@@ -25,4 +26,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-  )(UserData)
+)(UserData)

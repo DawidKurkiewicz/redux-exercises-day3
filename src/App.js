@@ -1,16 +1,16 @@
 import React from 'react';
 import Auth from './Auth'
-import UserDada from './Auth/UserData'
+import UserData from './Auth/UserData'
 
 
 
 const App = (props) => (
   <div>
-    {/* <Auth> */}
+    <Auth>
       <div>
         <UserData />
   </div>
-   {/* </Auth> */}
+   </Auth>
   </div>
 )
 
