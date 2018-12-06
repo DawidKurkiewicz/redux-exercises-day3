@@ -35,12 +35,12 @@ export default (state = INITIAL_STATE, action) => {
         case LOG_IN:
             return {
                 ...state,
-                isUserLoggedIN: true
+                isUserLoggedIn: true
             }
         case LOG_OUT:
             return {
                 ...state,
-                isUserLoggedIN: false
+                isUserLoggedIn: false
             }
         default:
             return state

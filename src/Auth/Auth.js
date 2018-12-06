@@ -7,6 +7,8 @@ import Forms from './Forms'
 
 import { connect } from 'react-redux'
 
+import { initAuthChangeListeningAction } from '../state/auth'
+
 class Auth extends React.Component {
   state = {
     email: '',
@@ -14,16 +16,7 @@ class Auth extends React.Component {
   }
 
   componentDidMount() {
-    auth.onAuthStateChanged(
-      // user is an obj with users data or null when not logged in
-      user => {
-        if (user) {
-          this.setState({ isUserLoggedIn: true })
-        } else {
-          this.setState({ isUserLoggedIn: false })
-        }
-      }
-    )
+    this.props._initAuthChangeListeningAction()
   }
 
   onEmailChangeHandler = event => {
@@ -51,7 +44,7 @@ class Auth extends React.Component {
 
   render() {
     return (
-      this.props.isUserLoggedIn ? <div>
+      this.props._isUserLoggedIn ? <div>
         <FloatingActionButton
           style={{
             position: 'fixed',
@@ -85,7 +78,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  _initAuthChangeListeningAction: () => dispatch(initAuthChangeListeningAction)
+  _initAuthChangeListeningAction: () => dispatch(initAuthChangeListeningAction())
 })
 
 export default connect(
